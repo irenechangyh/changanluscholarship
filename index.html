@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>一個家庭的支出選擇：教育、文化與下一代的想像</title>
+  <style>
+    :root {
+      --ink: #1f2524;
+      --muted: #69736f;
+      --paper: #fbfaf7;
+      --panel: #ffffff;
+      --green: #4f7f43;
+      --teal: #2c9096;
+      --rose: #c987a7;
+      --gold: #d59a45;
+      --blue: #557fb6;
+      --red: #e85f5b;
+      --line: #e7e5dc;
+      --shadow: 0 18px 45px rgba(45, 50, 47, .10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 5%, rgba(213, 154, 69, .16), transparent 23rem),
+        linear-gradient(180deg, #fffdfa 0%, #f4f4ee 100%);
+    }
+
+    button, input, select { font: inherit; }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 44px;
+    }
+
+    .hero {
+      min-height: 76vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 24px;
+      padding-top: 16px;
+    }
+
+    .title-block {
+      position: relative;
+      padding: 24px 10px 10px;
+      text-align: center;
+    }
+
+    .title-block::before,
+    .title-block::after {
+      content: "";
+      position: absolute;
+      top: 18px;
+      width: 82px;
+      height: 82px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      opacity: .9;
+    }
+
+    .title-block::before {
+      left: 2%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d59a45' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M20 30l28-12 8 35-31 9z' fill='%23fff6e6'/%3E%3Cpath d='M65 18l24 9-12 24-21-7z' fill='%23f8dfb6'/%3E%3Cpath d='M30 78l22-9 6 25-22 8z' fill='%23ffe8c8'/%3E%3Cpath d='M73 70l30 8-16 23-23-11z' fill='%23fff3dc'/%3E%3Cpath d='M58 8l4-6M94 58l11-5M12 65L4 77M76 42l5-10'/%3E%3C/g%3E%3Cg fill='%23557fb6'%3E%3Ccircle cx='18' cy='18' r='4'/%3E%3Ccircle cx='104' cy='31' r='3'/%3E%3Ccircle cx='63' cy='102' r='4'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .title-block::after {
+      right: 3%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%231f2524' stroke-width='8' stroke-linecap='round'%3E%3Cpath d='M35 30c20-5 38-5 56-2'/%3E%3Cpath d='M29 52c24-7 48-7 70-2'/%3E%3Cpath d='M32 75c17-4 34-4 52-1'/%3E%3C/g%3E%3Cpath d='M63 80l32 9-24 22-20-9z' fill='%232b7f68'/%3E%3Cpath d='M93 17l6 17 17 5-17 6-7 17-6-17-17-6 17-6z' fill='%23d59a45'/%3E%3C/svg%3E");
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 6.2vw, 76px);
+      line-height: 1.05;
+      font-weight: 950;
+      letter-spacing: 0;
+      text-shadow: 0 5px 0 rgba(0,0,0,.10);
+    }
+
+    .mark {
+      display: inline-block;
+      background: linear-gradient(transparent 64%, rgba(201, 135, 167, .55) 64%);
+      padding: 0 .04em;
+    }
+
+    .subtitle {
+      margin: 18px 0 0;
+      font-size: clamp(16px, 2vw, 23px);
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .authors {
+      margin: 18px auto 0;
+      width: min(920px, 100%);
+      color: #2f3432;
+      font-size: 15px;
+      line-height: 1.8;
+      font-weight: 650;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, .92);
+      border: 1px solid rgba(31, 37, 36, .06);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 14px;
+      color: var(--green);
+      font-size: 25px;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .section-title.teal { color: var(--teal); }
+    .section-title.rose { color: var(--rose); }
+
+    .dots {
+      display: inline-flex;
+      gap: 9px;
+      transform: translateY(1px);
+    }
+
+    .dots i {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: currentColor;
+      display: block;
+    }
+
+    p {
+      margin: 0;
+      line-height: 1.85;
+      font-size: 17px;
+    }
+
+    .simulator {
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .controls {
+      padding: 22px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .control label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #3f4b47;
+      font-weight: 800;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .control strong {
+      color: var(--green);
+      min-width: 56px;
+      text-align: right;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--green);
+    }
+
+    select {
+      width: 100%;
+      border: 1px solid #d8d8cf;
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .segmented {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 4px;
+      border: 1px solid #d8d8cf;
+      border-radius: 8px;
+      background: #f6f5ef;
+    }
+
+    .segmented button {
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      min-height: 38px;
+      color: #4f5b56;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .segmented button.active {
+      background: #fff;
+      color: var(--green);
+      box-shadow: 0 2px 8px rgba(31, 37, 36, .10);
+    }
+
+    .viz {
+      padding: 22px 22px 16px;
+      min-width: 0;
+    }
+
+    .chart-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .chart-tabs button {
+      border: 1px solid #d8d8cf;
+      background: #fff;
+      color: #34413d;
+      border-radius: 999px;
+      padding: 8px 13px;
+      cursor: pointer;
+      font-weight: 850;
+    }
+
+    .chart-tabs button.active {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+      min-height: 420px;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .tooltip {
+      position: absolute;
+      pointer-events: none;
+      transform: translate(-50%, calc(-100% - 12px));
+      background: rgba(31, 37, 36, .94);
+      color: white;
+      border-radius: 8px;
+      padding: 9px 10px;
+      font-size: 13px;
+      line-height: 1.45;
+      min-width: 150px;
+      opacity: 0;
+      transition: opacity .12s ease;
+      box-shadow: 0 10px 28px rgba(0,0,0,.22);
+      z-index: 3;
+    }
+
+    .tooltip.visible { opacity: 1; }
+
+    .legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      margin: 6px 0 0 74px;
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .swatch {
+      width: 16px;
+      height: 4px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+
+    .analysis-band,
+    .data-band {
+      margin-top: 20px;
+      padding: 24px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .data-card {
+      background: #f7f5ef;
+      border-radius: 8px;
+      padding: 14px;
+      border-left: 5px solid var(--gold);
+    }
+
+    .data-card:nth-child(2) { border-color: var(--teal); }
+    .data-card:nth-child(3) { border-color: var(--rose); }
+    .data-card:nth-child(4) { border-color: var(--blue); }
+
+    .data-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      margin-bottom: 6px;
+    }
+
+    .data-card b {
+      font-size: clamp(22px, 3vw, 32px);
+      line-height: 1.1;
+    }
+
+    .insight {
+      margin-top: 20px;
+      padding: 22px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .insight p + p { margin-top: 10px; }
+
+    .event-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .event-item {
+      border-left: 5px solid var(--teal);
+      background: #f7f5ef;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+
+    .event-item b {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+
+    .event-item span {
+      display: block;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .footer-strip {
+      height: 28px;
+      margin-top: 30px;
+      background: #f2c779;
+      border-radius: 2px;
+    }
+
+    .axis text,
+    .tick-label {
+      fill: #68736f;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .grid-line {
+      stroke: #e6e5dd;
+      stroke-width: 1;
+    }
+
+    .axis-line {
+      stroke: #aeb4ad;
+      stroke-width: 1.2;
+    }
+
+    .year-band {
+      fill: rgba(213, 154, 69, .13);
+      stroke: rgba(213, 154, 69, .55);
+      stroke-width: 1.2;
+    }
+
+    .year-label {
+      fill: #7b5b25;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .line {
+      fill: none;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: opacity .22s ease, stroke-width .22s ease;
+    }
+
+    .ci {
+      opacity: .13;
+      stroke: none;
+    }
+
+    .point {
+      stroke: #fff;
+      stroke-width: 2;
+      cursor: pointer;
+      transition: opacity .22s ease, r .22s ease;
+    }
+
+    .focus-line { stroke-width: 5.4; }
+    .dim { opacity: .32; }
+    .muted-point { opacity: .32; }
+    .selected-point {
+      stroke-width: 4;
+      filter: drop-shadow(0 3px 6px rgba(31, 37, 36, .22));
+    }
+
+    @media (max-width: 920px) {
+      .hero { min-height: auto; }
+      .simulator {
+        grid-template-columns: 1fr;
+      }
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .title-block::before,
+      .title-block::after {
+        width: 58px;
+        height: 58px;
+      }
+      .chart-wrap { min-height: 340px; }
+      .legend { margin-left: 0; }
+    }
+
+    @media (max-width: 560px) {
+      .page { width: min(100% - 20px, 1180px); padding-top: 8px; }
+      .title-block { padding-top: 62px; }
+      .title-block::before { left: 12px; }
+      .title-block::after { right: 12px; }
+      .controls,
+      .viz,
+      .analysis-band,
+      .data-band,
+      .insight { padding: 18px; }
+      .cards { grid-template-columns: 1fr; }
+      .chart-wrap { min-height: 310px; }
+      p { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <header class="title-block">
+        <h1>一個家庭的支出選擇：<br><span class="mark">教育、文化與下一代的想像</span></h1>
+        <p class="subtitle">114 學年度東海大學社會學系專題研究獎學金</p>
+        <p class="authors">指導教師：彭思錦老師　｜　專題研究學生：張雅惠、江承修、鍾佳彤、陳屏安、沈怡伶</p>
+      </header>
+
+      <section class="panel simulator" aria-label="互動式數據模擬器">
+        <aside class="controls">
+          <h2 class="section-title">互動模擬 <span class="dots"><i></i><i></i><i></i></span></h2>
+          <div class="control">
+            <label for="age">戶長年齡 <strong><span id="ageValue">45</span> 歲</strong></label>
+            <input id="age" type="range" min="20" max="80" value="45">
+          </div>
+          <div class="control">
+            <label for="children">子女數 <strong><span id="childrenValue">1</span> 人</strong></label>
+            <input id="children" type="range" min="0" max="5" value="1">
+          </div>
+          <div class="control">
+            <label for="sex">戶長性別</label>
+            <select id="sex">
+              <option value="1">男性</option>
+              <option value="0">女性</option>
+            </select>
+          </div>
+          <div class="control">
+            <label for="year">聚焦年份 <strong>民國 <span id="yearValue">113</span> 年</strong></label>
+            <input id="year" type="range" min="104" max="113" value="113" step="1">
+          </div>
+          <div class="control">
+            <label>聚焦社經地位</label>
+            <div class="segmented" role="group" aria-label="聚焦社經地位">
+              <button type="button" data-focus="low">低</button>
+              <button type="button" data-focus="mid" class="active">中</button>
+              <button type="button" data-focus="high">高</button>
+            </div>
+          </div>
+        </aside>
+
+        <div class="viz">
+          <div class="chart-tabs" role="tablist" aria-label="支出模型">
+            <button type="button" data-type="edu" class="active">教育支出模型預測</button>
+            <button type="button" data-type="cul">文化支出模型預測</button>
+          </div>
+          <div class="chart-wrap">
+            <div id="tooltip" class="tooltip"></div>
+            <svg id="chart" viewBox="0 0 780 430" role="img" aria-label="教育或文化支出模型預測趨勢圖"></svg>
+          </div>
+          <div class="legend">
+            <span><i class="swatch" style="background: var(--red)"></i>高社經地位</span>
+            <span><i class="swatch" style="background: var(--green)"></i>中社經地位</span>
+            <span><i class="swatch" style="background: var(--blue)"></i>低社經地位</span>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel analysis-band">
+      <h2 class="section-title teal">個別預測結果 <span class="dots"><i></i><i></i><i></i></span></h2>
+      <div class="insight" id="insight"></div>
+      <div class="insight" id="eventInsight"></div>
+    </section>
+
+    <section class="panel data-band">
+      <h2 class="section-title rose">資料來源與變項處理 <span class="dots"><i></i><i></i><i></i></span></h2>
+      <p>本頁使用分析資料集進行模型展示。資料範圍為民國 104 至 113 年，僅納入同時有子女、有教育支出且有文化支出的家庭；少任一條件即無法進入估算，因此最後分析樣本為 5,230 筆。支出金額已使用 CPI 調整，圖中單位為萬元。</p>
+      <div class="cards">
+        <div class="data-card"><span>分析樣本數</span><b id="sampleN">--</b></div>
+        <div class="data-card"><span>調查年份</span><b>104-113</b></div>
+        <div class="data-card"><span>樣本條件</span><b>有子女</b></div>
+        <div class="data-card"><span>支出條件</span><b>教育＋文化</b></div>
+      </div>
+    </section>
+
+    <div class="footer-strip" aria-hidden="true"></div>
+  </main>
+
+  <script>
+    const YEARS = [104, 105, 106, 107, 108, 109, 110, 111, 112, 113];
+    const SUMMARY = { n: 5230 };
+    const Y_DOMAINS = {
+      edu: { min: 0, max: 15 },
+      cul: { min: 0, max: 15 }
+    };
+    const EVENTS = {
+      edu: [
+        {
+          start: 104,
+          period: "103-109 學年度",
+          title: "高中職免學費第一階段：部分排富",
+          explanation: "配合 12 年國教上路，高職全面免學費；普通高中仍有家庭年所得 148 萬元排富門檻，因此部分中高收入家庭仍需負擔高中學費。"
+        },
+        {
+          start: 107,
+          period: "107 年 8 月起",
+          title: "擴大幼兒教育學費補助：準公共化幼兒園上路",
+          explanation: "教育部推動少子女化對策，私立幼兒園簽約轉為準公共化幼兒園，家長每月繳費設有上限，降低學齡前兒童家庭的教育負擔。"
+        },
+        {
+          start: 110,
+          period: "110 年 5 月至暑假",
+          title: "全台首度停課不停學",
+          explanation: "本土疫情爆發後，全國各級學校與公私立幼兒園停止到校上課，全面改為居家線上學習，家庭需承擔設備、照顧與學習安排成本。"
+        },
+        {
+          start: 111,
+          period: "111 年 4-6 月",
+          title: "Omicron 疫情下的彈性遠距與局部停課",
+          explanation: "確診人數暴增使國中小與高中頻繁停課、復課、再遠距，許多家長必須請假在家照顧小孩，影響家庭教育與照顧支出安排。"
+        },
+        {
+          start: 113,
+          period: "113 年 2 月起",
+          title: "高中全面免學費：取消排富門檻",
+          explanation: "配合拉近公私立學校學雜費差距方案，取消普通高中家庭年所得 148 萬元限制，所有公私立高中職學生全面免學費。"
+        },
+        {
+          start: 113,
+          period: "113 年 2 月起",
+          title: "公私立大專學雜費補貼",
+          explanation: "私立大專校院學生每人每年減免 3.5 萬元，並對弱勢學生加碼補助，直接降低私立大學學生家庭的高等教育支出。"
+        }
+      ],
+      cul: [
+        {
+          start: 104,
+          period: "104 年 7 月起",
+          title: "博物館法施行",
+          explanation: "台灣首部博物館法正式實施，推動公私立博物館評鑑、認證與質性升級，也帶動文化近用、育樂推廣活動與門票優惠。"
+        },
+        {
+          start: 108,
+          period: "108 年 6 月起",
+          title: "文化基本法通過與文化近用權",
+          explanation: "法規保障國民文化近用權，政府開始補貼弱勢族群與學生參與藝文活動，並推動實體書店、獨立樂團與藝文空間營運補助。"
+        },
+        {
+          start: 109,
+          period: "109 年 7-12 月",
+          title: "第一代藝FUN券",
+          explanation: "COVID-19 重創藝文產業後，文化部推出每份 600 元的藝FUN券，限定用於看電影、買書、看表演與逛博物館等文化消費。"
+        },
+        {
+          start: 110,
+          period: "110 年 11 月至 111 年 4 月",
+          title: "第二代數位／紙本藝FUN券",
+          explanation: "配合振興五倍券再度加碼發行每份 600 元藝FUN券，延續 109 年補貼，在短期內刺激家庭文化消費支出。"
+        },
+        {
+          start: 112,
+          period: "112 年 6 月起",
+          title: "文化成年禮金：文化幣上路",
+          explanation: "藝FUN券政策轉為常態化，首波針對 18-21 歲青年發放 1200 點文化幣，專屬用於藝文消費。"
+        },
+        {
+          start: 113,
+          period: "113 年 1 月起",
+          title: "文化幣擴大發放年齡層",
+          explanation: "文化禮金對象擴大為 16-22 歲，涵蓋高中至大學階段，使更多年輕學子的買書、看展等文化消費由政府補貼。"
+        }
+      ]
+    };
+
+    const coeffs = {
+      edu: { intercept: 10.014064, year: 0.001956, ses: -1.285505, yearSes: 0.012314, age: 0.008674, male: 0.130710, children: 0.129412 },
+      cul: { intercept: 13.179, year: -0.031, ses: 0.004, ageSes: 0.001, age: 0.009, male: 0.147, children: 0.122 }
+    };
+
+    const sesValues = { low: -1.5, mid: 0, high: 1.5 };
+    const sesLabels = { low: "低社經地位", mid: "中社經地位", high: "高社經地位" };
+    const sesColors = { low: "#557fb6", mid: "#4f7f43", high: "#e85f5b" };
+    const typeLabels = { edu: "教育支出", cul: "文化支出" };
+    const state = { type: "edu", focus: "mid", age: 45, children: 1, male: 1, year: 113 };
+
+    const svg = document.getElementById("chart");
+    const tooltip = document.getElementById("tooltip");
+    const years = YEARS;
+    const margin = { top: 36, right: 30, bottom: 56, left: 66 };
+    const plot = { width: 680, height: 300 };
+    let previousGeometry = { paths: {}, points: {} };
+
+    function money(value) {
+      return `${value.toFixed(2)} 萬`;
+    }
+
+    function predict(type, year, ses) {
+      const c = coeffs[type];
+      const interaction = c.ageSes ? c.ageSes * state.age * ses : c.yearSes * year * ses;
+      const logValue = c.intercept + c.year * year + c.ses * ses + interaction + c.age * state.age + c.male * state.male + c.children * state.children;
+      return Math.exp(logValue) / 10000;
+    }
+
+    function getSeries() {
+      const data = {};
+      for (const group of ["low", "mid", "high"]) {
+        data[group] = years.map(year => predict(state.type, year, sesValues[group]));
+      }
+      return data;
+    }
+
+    function makePath(points) {
+      return points.map((point, index) => `${index ? "L" : "M"}${point.x.toFixed(2)} ${point.y.toFixed(2)}`).join(" ");
+    }
+
+    function create(tag, attrs = {}) {
+      const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+      for (const [key, value] of Object.entries(attrs)) {
+        el.setAttribute(key, value);
+      }
+      return el;
+    }
+
+    function animateAttr(el, attr, from, to, duration = "320ms") {
+      if (!from || from === to) return;
+      const animation = create("animate", {
+        attributeName: attr,
+        from,
+        to,
+        dur: duration,
+        fill: "freeze",
+        calcMode: "spline",
+        keySplines: ".2 .8 .2 1"
+      });
+      el.appendChild(animation);
+      animation.beginElement();
+    }
+
+    function drawChart() {
+      const data = getSeries();
+      const domain = Y_DOMAINS[state.type];
+      const max = domain.max;
+      const min = domain.min;
+      const x = year => margin.left + ((year - years[0]) / (years[years.length - 1] - years[0])) * plot.width;
+      const y = value => margin.top + plot.height - ((value - min) / (max - min)) * plot.height;
+      const nextGeometry = { paths: {}, points: {} };
+
+      svg.innerHTML = "";
+      const title = create("text", { x: margin.left, y: 22, fill: "#1f2524", "font-size": 18, "font-weight": 900 });
+      title.textContent = `${typeLabels[state.type]}模型預測`;
+      svg.appendChild(title);
+
+      const steps = 5;
+      for (let i = 0; i <= steps; i++) {
+        const value = min + (max - min) * (i / steps);
+        const py = y(value);
+        svg.appendChild(create("line", { x1: margin.left, y1: py, x2: margin.left + plot.width, y2: py, class: "grid-line" }));
+        const label = create("text", { x: margin.left - 12, y: py + 4, "text-anchor": "end", class: "tick-label" });
+        label.textContent = value.toFixed(1);
+        svg.appendChild(label);
+      }
+
+      svg.appendChild(create("line", { x1: margin.left, y1: margin.top + plot.height, x2: margin.left + plot.width, y2: margin.top + plot.height, class: "axis-line" }));
+      svg.appendChild(create("line", { x1: margin.left, y1: margin.top, x2: margin.left, y2: margin.top + plot.height, class: "axis-line" }));
+
+      for (const year of years) {
+        const px = x(year);
+        svg.appendChild(create("line", { x1: px, y1: margin.top, x2: px, y2: margin.top + plot.height, class: "grid-line" }));
+        const label = create("text", { x: px, y: margin.top + plot.height + 28, "text-anchor": "middle", class: "tick-label" });
+        label.textContent = year;
+        svg.appendChild(label);
+      }
+
+      const selectedX = x(state.year);
+      svg.appendChild(create("rect", {
+        x: selectedX - 18,
+        y: margin.top,
+        width: 36,
+        height: plot.height,
+        rx: 6,
+        class: "year-band"
+      }));
+      const selectedLabel = create("text", { x: selectedX, y: margin.top - 9, "text-anchor": "middle", class: "year-label" });
+      selectedLabel.textContent = `民國 ${state.year} 年`;
+      svg.appendChild(selectedLabel);
+
+      const yTitle = create("text", { x: 18, y: 188, transform: "rotate(-90 18 188)", fill: "#4f5b56", "font-size": 13, "font-weight": 850 });
+      yTitle.textContent = "模型預測支出（萬元）";
+      svg.appendChild(yTitle);
+
+      for (const group of ["high", "mid", "low"]) {
+        const values = data[group];
+        const points = values.map((value, index) => ({ x: x(years[index]), y: y(value), value, year: years[index] }));
+        const isFocus = group === state.focus;
+        const pathD = makePath(points);
+        nextGeometry.paths[group] = pathD;
+
+        const path = create("path", {
+          d: pathD,
+          class: `line ${isFocus ? "focus-line" : "dim"}`,
+          stroke: sesColors[group]
+        });
+        svg.appendChild(path);
+        animateAttr(path, "d", previousGeometry.paths[group], pathD);
+
+        points.forEach(point => {
+          const isSelectedYear = point.year === state.year;
+          const pointKey = `${group}-${point.year}`;
+          nextGeometry.points[pointKey] = { x: point.x, y: point.y };
+          const circle = create("circle", {
+            cx: point.x,
+            cy: point.y,
+            r: isSelectedYear ? (isFocus ? 8 : 6.5) : (isFocus ? 5 : 4),
+            fill: sesColors[group],
+            class: `point ${isFocus ? "" : "dim"} ${isSelectedYear ? "selected-point" : "muted-point"}`
+          });
+          circle.addEventListener("pointerenter", event => showTip(event, group, point));
+          circle.addEventListener("pointermove", event => showTip(event, group, point));
+          circle.addEventListener("pointerleave", hideTip);
+          svg.appendChild(circle);
+          if (previousGeometry.points[pointKey]) {
+            animateAttr(circle, "cx", previousGeometry.points[pointKey].x.toFixed(2), point.x.toFixed(2));
+            animateAttr(circle, "cy", previousGeometry.points[pointKey].y.toFixed(2), point.y.toFixed(2));
+          }
+        });
+      }
+      previousGeometry = nextGeometry;
+    }
+
+    function showTip(event, group, point) {
+      const wrap = svg.parentElement.getBoundingClientRect();
+      tooltip.style.left = `${event.clientX - wrap.left}px`;
+      tooltip.style.top = `${event.clientY - wrap.top}px`;
+      tooltip.innerHTML = `<strong>民國 ${point.year} 年｜${sesLabels[group]}</strong><br>${typeLabels[state.type]}：${money(point.value)}`;
+      tooltip.classList.add("visible");
+    }
+
+    function hideTip() {
+      tooltip.classList.remove("visible");
+    }
+
+    function renderInsight() {
+      const data = getSeries();
+      const group = state.focus;
+      const selectedIndex = years.indexOf(state.year);
+      const start = data[group][0];
+      const selected = data[group][selectedIndex];
+      const end = data[group][data[group].length - 1];
+      const trendText = end >= start ? "上升" : "下降";
+
+      document.getElementById("insight").innerHTML = `
+        <p>目前圖表顯示 <strong>${typeLabels[state.type]}模型預測</strong>。在 <strong>${sesLabels[group]}</strong> 條件下，民國 ${state.year} 年的模型預測值為 <strong>${money(selected)}</strong>。</p>
+        <p>從民國 104 到 113 年，該組別的${typeLabels[state.type]}整體呈現${trendText}。圖中的年份滑桿用來聚焦特定調查年分，不代表目前西元年份。</p>
+      `;
+      renderEvents();
+    }
+
+    function renderEvents() {
+      const activeEvents = EVENTS[state.type].filter(event => event.start <= state.year);
+      const eventItems = activeEvents.map(event => `
+        <div class="event-item">
+          <b>${event.period}：${event.title}</b>
+          <span>${event.explanation}</span>
+        </div>
+      `).join("");
+
+      document.getElementById("eventInsight").innerHTML = `
+        <p><strong>民國 ${state.year} 年${typeLabels[state.type]}背景大事記</strong>：這裡採「開始時間後累積納入」的方式呈現；也就是某項政策、補貼或重大事件從開始年份起，會在後續年份持續作為當年度的制度與社會背景。</p>
+        <div class="event-list">${eventItems}</div>
+      `;
+    }
+
+    function update() {
+      state.age = Number(document.getElementById("age").value);
+      state.children = Number(document.getElementById("children").value);
+      state.male = Number(document.getElementById("sex").value);
+      state.year = Number(document.getElementById("year").value);
+      document.getElementById("ageValue").textContent = state.age;
+      document.getElementById("childrenValue").textContent = state.children;
+      document.getElementById("yearValue").textContent = state.year;
+      drawChart();
+      renderInsight();
+    }
+
+    document.querySelectorAll("[data-focus]").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("[data-focus]").forEach(el => el.classList.toggle("active", el === button));
+        state.focus = button.dataset.focus;
+        update();
+      });
+    });
+
+    document.querySelectorAll("[data-type]").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("[data-type]").forEach(el => el.classList.toggle("active", el === button));
+        state.type = button.dataset.type;
+        previousGeometry = { paths: {}, points: {} };
+        update();
+      });
+    });
+
+    ["age", "children", "sex", "year"].forEach(id => document.getElementById(id).addEventListener("input", update));
+
+    document.getElementById("sampleN").textContent = SUMMARY.n.toLocaleString("zh-TW");
+    update();
+  </script>
+</body>
+</html>
